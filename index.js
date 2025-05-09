@@ -4,6 +4,10 @@
 // init project
 var express = require('express');
 var app = express();
+// Configurar Express para confiar en los proxies
+app.set('trust proxy', true);
+
+
 
 // enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
 // so that your API is remotely testable by FCC 
@@ -17,6 +21,18 @@ app.use(express.static('public'));
 app.get("/", function (req, res) {
   res.sendFile(__dirname + '/views/index.html');
 });
+
+app.get("/api/whoami", function (req, res) {
+  // Asegurarse de que los nombres de las claves sean exactamente como se especifican
+  return res.json({
+    "ipaddress": req.ip,
+    "language": req.headers["accept-language"],
+    "software": req.headers["user-agent"]
+  });
+});
+
+
+
 
 app.get("/api/:date?", function (req, res) {
   let dateParam = req.params.date;
@@ -49,16 +65,9 @@ app.get("/api/:date?", function (req, res) {
 
 
 
-// Configurar Express para confiar en los proxies
-app.set('trust proxy', true);
 
-app.get("/api/whoami", function (req, res) {
-  res.json({
-    ipaddress: req.ip,
-    language: req.headers["accept-language"],
-    software: req.headers["user-agent"]
-  });
-});
+
+
 
 
 

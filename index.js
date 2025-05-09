@@ -49,6 +49,8 @@ app.get("/api/:date?", function (req, res) {
 
 
 
+// Configurar Express para confiar en los proxies
+app.set('trust proxy', true);
 
 app.get("/api/whoami", function (req, res) {
   res.json({

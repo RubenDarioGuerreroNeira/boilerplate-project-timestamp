@@ -50,6 +50,16 @@ app.get("/api/:date?", function (req, res) {
 
 
 
+app.get("/api/whoami", function (req, res) {
+  res.json({
+    ipaddress: req.ip,
+    language: req.headers["accept-language"],
+    software: req.headers["user-agent"]
+  });
+});
+
+
+
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
